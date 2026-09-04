@@ -47,10 +47,10 @@ void pendulum_init(void) {
 float pendulum_read_voltage(void) {
     HAL_ADC_Start(&adc_config);
     HAL_ADC_PollForConversion(&adc_config, 0xFF);
-    float adc_val = HAL_ADC_GetValue(&adc_config);
+    uint32_t adc_val = HAL_ADC_GetValue(&adc_config);
     HAL_ADC_Stop(&adc_config);
     // We set adc to have 12bit range (4095 vals), and we have to scale it by VDD, which
     // for our board is 3.3V
-    float voltage = (adc_val/4095) * 3.3;
+    float voltage = ((float)adc_val/4095.0f) * 3.3f;
     return voltage;
 }
