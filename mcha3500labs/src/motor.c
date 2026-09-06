@@ -79,7 +79,6 @@ void EXTI0_IRQHandler(void) {
         }
         else {
             encoder_count--;
-            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5); //test
             
         }
     }
@@ -94,7 +93,6 @@ void EXTI1_IRQHandler(void) {
     if (gpio_1_pin_state == HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_0)) {
         if (gpio_1_pin_state == GPIO_PIN_SET) {
             encoder_count++;
-            //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5); //test
 
         }
         else {
