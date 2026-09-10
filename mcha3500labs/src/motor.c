@@ -68,37 +68,26 @@ void motor_encoder_init(void) {
 
 static volatile int32_t encoder_count = 0;
 
-void EXTI0_IRQHandler(void) {
-    GPIO_PinState gpio_0_pin_state = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_0);
-    
+void EXTI0_IRQHandler(void) {    
 
-    if (gpio_0_pin_state == HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1)) {
-        if (gpio_0_pin_state == GPIO_PIN_SET) {
-            encoder_count--;
-            
-        }
-        else {
-            encoder_count--;
-            
-        }
+    if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_0) == HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1)) {
+        encoder_count--;
+    }
+    else {
+        encoder_count++;
     }
 
     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
 }
 
 void EXTI1_IRQHandler(void) {
-    GPIO_PinState gpio_1_pin_state = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1);
     
 
-    if (gpio_1_pin_state == HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_0)) {
-        if (gpio_1_pin_state == GPIO_PIN_SET) {
-            encoder_count++;
-
-        }
-        else {
-            encoder_count++;
-            
-        }
+    if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1) == HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_0)) {
+        encoder_count++;
+    }
+    else {
+        encoder_count--;
     }
 
     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
