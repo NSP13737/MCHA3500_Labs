@@ -64,7 +64,7 @@ void dummy_task_update(void *arg)
     {
         // TODO: Add print statements here
         float voltage = pendulum_read_voltage();
-        //printf("Voltage: %f\n", voltage);
+        printf("Voltage: %f\n", voltage);
         int32_t encoder_count = motor_encoder_getValue();
         printf("Encoder count: %ld\n", encoder_count);
         // Non-blocking delay to wait
