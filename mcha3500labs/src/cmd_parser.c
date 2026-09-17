@@ -19,6 +19,8 @@ typedef struct
 // Forward declaration for built-in commands
 static void _help(int, char *[]);
 static void _reset(int, char *[]);
+static void _cmd_getPotentiometerVoltage(int, char *[]);
+#include "pendulum.h"
 
 // Modules that provide commands
 #include "heartbeat_cmd.h"
@@ -29,6 +31,7 @@ static CMD_T cmd_table[] =
     {_help              , "help"        , ""                          , "Displays this help message"             } ,
     {_reset             , "reset"       , ""                          , "Restarts the system."                   } ,
     {heartbeat_cmd      , "heartbeat"   , "[start|stop]"              , "Get status or start/stop heartbeat task"} ,
+    {_cmd_getPotentiometerVoltage      , "getPot"   , ""              , "Get current voltage at potentiometer."} ,
 };
 enum {CMD_TABLE_SIZE = sizeof(cmd_table)/sizeof(CMD_T)};
 enum {CMD_MAX_TOKENS = 5};      // Maximum number of tokens to process (command + arguments)
@@ -79,6 +82,15 @@ void _reset(int argc, char *argv[])
     UNUSED(argv);
     // Reset the system
     HAL_NVIC_SystemReset();
+}
+
+void _cmd_getPotentiometerVoltage(int argc, char *argv[]) {
+    UNUSED(argc);
+    UNUSED(argv);
+
+    float voltage = pendulum_read_voltage();
+    printf("Pot Voltage: %f", voltage);
+    printf("\n");
 }
 
 void _print_chip_pinout(void)
