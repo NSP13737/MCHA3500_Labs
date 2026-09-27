@@ -19,7 +19,7 @@ static void log_pendulum(void *argument) {
 
     float voltage = pendulum_read_voltage();
     float relative_time = (TIMER_PERIOD_MS/1000) * logCount;
-    printf("[%f] , [%f]", relative_time, voltage);
+    printf("%f,%f", relative_time, voltage);
     logCount++;
     if (logCount >= (2 / (TIMER_PERIOD_MS/1000))) {// call after 2 seconds
         pend_logging_stop();

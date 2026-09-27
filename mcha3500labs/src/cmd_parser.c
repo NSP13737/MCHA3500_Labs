@@ -30,7 +30,7 @@ static CMD_T cmd_table[] =
     {_help              , "help"        , ""                          , "Displays this help message"             } ,
     {_reset             , "reset"       , ""                          , "Restarts the system."                   } ,
     {heartbeat_cmd      , "heartbeat"   , "[start|stop]"              , "Get status or start/stop heartbeat task"} ,
-    {pend_logging_start      , "getPot"   , ""              , "Get current voltage at potentiometer."} ,
+    {pend_logging_start      , "logPot"   , ""              , "Get current voltage at potentiometer."} ,
 };
 enum {CMD_TABLE_SIZE = sizeof(cmd_table)/sizeof(CMD_T)};
 enum {CMD_MAX_TOKENS = 5};      // Maximum number of tokens to process (command + arguments)
