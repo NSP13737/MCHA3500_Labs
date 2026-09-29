@@ -60,7 +60,12 @@ void dummy_task_update(void *arg)
 	
     while(1)
     {
-        // TODO: Add print statements here
+        /* TODO: Read IMU */
+        
+        /* TODO: Print X accelleration */
+        
+        
+        /* TODO: Print angle */
 
         // Non-blocking delay to wait
         osDelay(1000);
