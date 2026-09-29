@@ -45,13 +45,13 @@ SRC_STM = \
 	$(SRCDIR)/uart.c \
 	$(SRCDIR)/heartbeat_task.c \
 	$(SRCDIR)/heartbeat_cmd.c \
-	$(SRCDIR)/dummy_task.c
+	$(SRCDIR)/dummy_task.c 
 
 SRC_MPU6050LIB = \
 	$(MPU6050LIB_ROOT)/tm_stm32_gpio.c \
 	$(MPU6050LIB_ROOT)/tm_stm32_i2c.c \
 	$(MPU6050LIB_ROOT)/tm_stm32_mpu6050.c
-
+	
 # Assembly source files
 A_SRC = \
 	$(SRCDIR)/startup_stm32f446xx.S
@@ -122,7 +122,7 @@ INC_STM = \
 	.\
 	src \
 	$(INC_STM_CUBE) \
-	$(INC_RTOS) \ 
+	$(INC_RTOS) \
 	$(MPU6050LIB_ROOT)
 
 TARGET_INCLUDES = $(addprefix -I,$(INC_STM))
