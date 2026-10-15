@@ -4,7 +4,7 @@
 #include <tm_stm32_mpu6050.h>
 #include <math.h>
 #include <float.h>
-//#include "debug.h"
+#include "debug.h"
 
 #ifndef M_PI
     #define M_PI 3.14159265358979323846
@@ -46,8 +46,7 @@ float get_gyro(int16_t raw_gyro);
 void IMU_init(void) {
     TM_MPU6050_Result_t result = TM_MPU6050_Init(&IMU_datastruct, TM_MPU6050_Device_0, DESIRED_ACCEL_PRECISION, DESIRED_GYRO_PRECISION);
     if (result != TM_MPU6050_Result_Ok) {
-        //DEBUG("IMU Init Failed: result = %d\n", (int)result);
-        printf("IMU Init Failed: result = %d\n", (int)result);
+        DEBUG("IMU Init Failed: result = %d", (int)result);
     }
 
 }
@@ -58,8 +57,7 @@ void IMU_init(void) {
 void IMU_read(void) {
     TM_MPU6050_Result_t result = TM_MPU6050_ReadAll(&IMU_datastruct);
     if (result != TM_MPU6050_Result_Ok) {
-        //DEBUG("IMU Read Failed: result = %d\n", (int)result);
-        printf("IMU Read Failed: result = %d\n", (int)result);
+        DEBUG("IMU Read Failed: result = %d", (int)result);
     }
 }
 

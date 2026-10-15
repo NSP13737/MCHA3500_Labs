@@ -42,7 +42,7 @@ static void imu_log_data(void) {
     float gyro_X = get_gyroX();
     float potVoltage = pot_read_voltage();
     float relative_time = (TIMER_PERIOD_MS/1000) * logCount;
-    printf("%f,%f,%f,%f\n", relative_time, acc_angle, gyro_X, potVoltage);
+    printf("%f,%f,%f,%f", relative_time, acc_angle, gyro_X, potVoltage);
     logCount++;
     if (logCount >= (5 / (TIMER_PERIOD_MS/1000))) {// call after 2 seconds
         logging_stop();
