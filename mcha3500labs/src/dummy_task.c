@@ -7,6 +7,7 @@
 #include "uart.h"
 #include "pendulum.h"
 #include "motor.h"
+#include "IMU.h"
 
 static void dummy_task_update(void *arg);
 
@@ -65,9 +66,13 @@ void dummy_task_update(void *arg)
         // TODO: Add print statements here
         
         /* TODO: Read IMU */
+        IMU_read();
         
-        /* TODO: Print X accelleration */
-        
+        /* TODO: Print Y accelleration */
+        // printf("Accel Y: %f\n", get_accY());
+        // printf("Accel Z: %f\n", get_accZ());
+        // printf("Gyro X: %f\n", get_gyroX());
+        printf("Accelerometer Angle: %f\n", get_acc_angle());
         
         /* TODO: Print angle */
 

@@ -24,6 +24,7 @@
  * |----------------------------------------------------------------------
  */
 #include "tm_stm32_mpu6050.h"
+#include "debug.h"
 
 /* Default I2C address */
 #define MPU6050_I2C_ADDR            0xD0
@@ -100,15 +101,15 @@ TM_MPU6050_Result_t TM_MPU6050_Init(TM_MPU6050_t* DataStruct, TM_MPU6050_Device_
     TM_I2C_Read(MPU6050_I2C, DataStruct->Address, MPU6050_WHO_AM_I, &temp);
     if (temp == MPU6050_I_AM)
     {
-        printf("IMU is MPU6050.\n");
+        DEBUG("IMU is MPU6050.\n");
     }
     else if (temp == ICM20689_I_AM)
     {
-        printf("IMU is ICM20689.\n");
+        DEBUG("IMU is ICM20689.\n");
     }
     else if (temp == ICMUNKNOWN_I_AM)
     {
-        printf("IMU is unknown! :o\n");
+        DEBUG("IMU is unknown! :o\n");
     }
     else
     {

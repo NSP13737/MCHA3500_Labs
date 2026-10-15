@@ -44,7 +44,7 @@ void pendulum_init(void) {
     
 }
 
-float pendulum_read_voltage(void) {
+float pot_read_voltage(void) {
     HAL_ADC_Start(&adc_config);
     HAL_ADC_PollForConversion(&adc_config, 0xFF);
     uint32_t adc_val = HAL_ADC_GetValue(&adc_config);

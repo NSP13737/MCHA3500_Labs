@@ -48,7 +48,9 @@ SRC_STM = \
 	$(SRCDIR)/dummy_task.c \
 	$(SRCDIR)/pendulum.c \
 	$(SRCDIR)/motor.c \
-	$(SRCDIR)/data_logging.c 	
+	$(SRCDIR)/data_logging.c \
+	$(SRCDIR)/IMU.c 
+
 
 SRC_MPU6050LIB = \
 	$(MPU6050LIB_ROOT)/tm_stm32_gpio.c \

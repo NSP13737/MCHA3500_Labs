@@ -7,6 +7,7 @@
 #include "pendulum.h"
 #include "cmsis_os2.h"
 #include "data_logging.h"
+#include "IMU.h"
 
 uint16_t logCount;
 
@@ -18,15 +19,32 @@ osTimerId_t osTim_dataLogging;
 
 /* Function Declarations */
 static void log_pointer(void *argument); // The param (void *argument) is required by FreeRTOS for timer callback
-static void pend_log_data(void);
+static void pot_log_data(void);
+void logging_start(void *log_function_ptr);
 
-static void pend_log_data(void ) {
+static void pot_log_data(void) {
 
-    float voltage = pendulum_read_voltage();
+    float voltage = pot_read_voltage();
     float relative_time = (TIMER_PERIOD_MS/1000) * logCount;
     printf("%f,%f", relative_time, voltage);
     logCount++;
     if (logCount >= (2 / (TIMER_PERIOD_MS/1000))) {// call after 2 seconds
+        logging_stop();
+    }
+    printf("\n");
+}
+
+static void imu_log_data(void) {
+
+    IMU_read();
+
+    double acc_angle = get_acc_angle();
+    float gyro_X = get_gyroX();
+    float potVoltage = pot_read_voltage();
+    float relative_time = (TIMER_PERIOD_MS/1000) * logCount;
+    printf("%f,%f,%f,%f\n", relative_time, acc_angle, gyro_X, potVoltage);
+    logCount++;
+    if (logCount >= (5 / (TIMER_PERIOD_MS/1000))) {// call after 2 seconds
         logging_stop();
     }
     printf("\n");
@@ -56,10 +74,9 @@ static void log_pointer(void *argument) {
     (*log_function)();
 }
 
-void logging_start(void) {
 
-    // Set which 
-    log_function = &pend_log_data;
+void logging_start(void *log_function_ptr) {
+    log_function = log_function_ptr;
 
     logCount = 0;
     if (osTim_dataLogging != NULL) {
@@ -69,6 +86,17 @@ void logging_start(void) {
         //is there a good way to flag this somehow?
         return;
     }
+}
+
+void pot_logging_start(void) {
+
+    logging_start(&pot_log_data);
+
+}
+
+void imu_logging_start(void) {
+
+    logging_start(&imu_log_data);
 }
 
 void logging_stop(void) {
