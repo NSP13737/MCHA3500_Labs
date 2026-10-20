@@ -23,6 +23,8 @@ static void _reset(int, char *[]);
 // Modules that provide commands
 #include "heartbeat_cmd.h"
 #include "data_logging.h"
+#include "controller.h"
+static void _cmd_updateControl(int argc, char *argv[]);
 
 // Command table
 static CMD_T cmd_table[] =
@@ -32,11 +34,33 @@ static CMD_T cmd_table[] =
     {heartbeat_cmd      , "heartbeat"   , "[start|stop]"              , "Get status or start/stop heartbeat task"} ,
     {pot_logging_start      , "potLogData"   , ""              , "Get current voltage at potentiometer."} ,
     {imu_logging_start      , "imuLogData"   , ""              , "Get time,acc_angle,gyro_angle_velo,pot_voltage."} ,
+    {_cmd_updateControl      , "getControl"   , "x1 x2 x3 x4"              , "Returns control given state inputs."} ,
 };
 enum {CMD_TABLE_SIZE = sizeof(cmd_table)/sizeof(CMD_T)};
 enum {CMD_MAX_TOKENS = 5};      // Maximum number of tokens to process (command + arguments)
 
 // Command function definitions
+
+static void _cmd_updateControl(int argc, char *argv[])
+{
+    // Check for correct input arguments
+    if(argc != 5)
+    {
+        printf("Incorrect arguments\n");
+    }
+    else
+    {
+        /* Update states using ctrl_set_xi functions */
+        ctrl_set_x1(atof(argv[1]));
+        ctrl_set_x2(atof(argv[2]));
+        ctrl_set_x3(atof(argv[3]));
+        ctrl_set_x4(atof(argv[4]));
+        /* Update controller value */
+        ctrl_update();
+        /* Print control action */
+        printf("%f\n", getControl());
+    }
+}
 
 static void _print_chip_pinout(void);
 
@@ -83,7 +107,6 @@ void _reset(int argc, char *argv[])
     // Reset the system
     HAL_NVIC_SystemReset();
 }
-
 
 void _print_chip_pinout(void)
 {

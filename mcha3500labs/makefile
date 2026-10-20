@@ -49,7 +49,8 @@ SRC_STM = \
 	$(SRCDIR)/pendulum.c \
 	$(SRCDIR)/motor.c \
 	$(SRCDIR)/data_logging.c \
-	$(SRCDIR)/IMU.c 
+	$(SRCDIR)/IMU.c \
+	$(SRCDIR)/controller.c 
 
 
 SRC_MPU6050LIB = \
