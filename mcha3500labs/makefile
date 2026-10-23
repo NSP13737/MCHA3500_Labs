@@ -52,6 +52,7 @@ SRC_STM = \
 	$(SRCDIR)/IMU.c \
 	$(SRCDIR)/controller.c 
 
+	$(SRCDIR)/qpas_sub_noblas.c
 
 SRC_MPU6050LIB = \
 	$(MPU6050LIB_ROOT)/tm_stm32_gpio.c \
@@ -129,7 +130,7 @@ INC_STM = \
 	src \
 	$(INC_STM_CUBE) \
 	$(INC_RTOS) \
-	$(MPU6050LIB_ROOT)
+	$(MPU6050LIB_ROOT) 
 
 TARGET_INCLUDES = $(addprefix -I,$(INC_STM))
 
